@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Phonebook Search</h1>
+  <p class="muted">Enter a surname (prefix match). Example: <span class="pill">Smith</span></p>
+
+  <form action="/search" method="get">
+    <input name="surname" type="text" placeholder="Surname" autocomplete="family-name" required />
+    <button type="submit">Search</button>
+  </form>
+{% endblock %}

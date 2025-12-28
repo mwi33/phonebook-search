@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Results</h1>
+
+  <form action="/search" method="get">
+    <input name="surname" type="text" value="{{ surname }}" placeholder="Surname" required />
+    <button type="submit">Search</button>
+  </form>
+
+  {% if not surname %}
+    <p class="muted">No surname provided.</p>
+  {% else %}
+    <p class="muted">
+      Showing page {{ page }}. Total matches: {{ total }}.
+      {% if total > max_total %}
+        Display capped at {{ max_total }} for safety.
+      {% endif %}
+    </p>
+
+    {% if results|length == 0 %}
+      <p>No matches.</p>
+    {% else %}
+      <table>
+        <thead>
+          <tr>
+            <th>Surname</th>
+            <th>Given names</th>
+            <th>Address</th>
+            <th>Suburb</th>
+            <th>State</th>
+            <th>Postcode</th>
+            <th>Phone</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for r in results %}
+            <tr>
+              <td>{{ r["surname"] }}</td>
+              <td>{{ r["given_names"] or "" }}</td>
+              <td>{{ r["address"] or "" }}</td>
+              <td>{{ r["suburb"] or "" }}</td>
+              <td>{{ r["state"] or "" }}</td>
+              <td>{{ r["postcode"] or "" }}</td>
+              <td>{{ r["phone"] or "" }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      <div class="pager" style="margin-top: 1rem;">
+        {% set prev_page = page - 1 %}
+        {% set next_page = page + 1 %}
+
+        {% if page > 1 %}
+          <a href="/search?surname={{ surname|urlencode }}&page={{ prev_page }}">← Prev</a>
+        {% endif %}
+
+        {% if (page * per_page) < total and (page * per_page) < max_total %}
+          <a href="/search?surname={{ surname|urlencode }}&page={{ next_page }}">Next →</a>
+        {% endif %}
+      </div>
+    {% endif %}
+  {% endif %}
+{% endblock %}
