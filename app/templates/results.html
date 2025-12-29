@@ -24,10 +24,9 @@
         <thead>
           <tr>
             <th>Surname</th>
-            <th>Given names</th>
-            <th>Address</th>
+            <th>House Number</th>
+            <th>Street</th>
             <th>Suburb</th>
-            <th>State</th>
             <th>Postcode</th>
             <th>Phone</th>
           </tr>
@@ -36,12 +35,11 @@
           {% for r in results %}
             <tr>
               <td>{{ r["surname"] }}</td>
-              <td>{{ r["given_names"] or "" }}</td>
-              <td>{{ r["address"] or "" }}</td>
-              <td>{{ r["suburb"] or "" }}</td>
-              <td>{{ r["state"] or "" }}</td>
+              <td>{{ r["house_no"] or "" }}</td>
+              <td>{{ r["street"] or "" }}</td>
+              <td>{{ r["town_city_suburb"] or "" }}</td>
               <td>{{ r["postcode"] or "" }}</td>
-              <td>{{ r["phone"] or "" }}</td>
+              <td>{{ r["phone_number"] or "" }}</td>
             </tr>
           {% endfor %}
         </tbody>

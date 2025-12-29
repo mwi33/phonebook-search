@@ -8,8 +8,8 @@ def create_app() -> Flask:
     app.config.from_mapping(
         SECRET_KEY=os.environ.get("SECRET_KEY", "dev-secret-change-me"),
         DATABASE_PATH=os.environ.get(
-            "DATABASE_PATH",
-            os.path.join(app.instance_path, "phonebook.sqlite3"),
+        "DATABASE_PATH",
+            os.path.join(app.instance_path, "phonebook.db"),
         ),
         MAX_RESULTS_PER_PAGE=int(os.environ.get("MAX_RESULTS_PER_PAGE", "50")),
         MAX_TOTAL_RESULTS=int(os.environ.get("MAX_TOTAL_RESULTS", "500")),

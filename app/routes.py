@@ -32,7 +32,7 @@ def search():
         count_row = db.execute(
             """
             SELECT COUNT(*) AS c
-            FROM phonebook
+            FROM residential
             WHERE surname LIKE ? COLLATE NOCASE
             """,
             (surname + "%",),
@@ -46,10 +46,10 @@ def search():
         if offset < total_capped:
             results = db.execute(
                 """
-                SELECT id, surname, given_names, address, suburb, state, postcode, phone
-                FROM phonebook
+                SELECT record_id, surname, house_no, street, town_city_suburb, postcode, phone_number
+                FROM residential
                 WHERE surname LIKE ? COLLATE NOCASE
-                ORDER BY surname ASC, given_names ASC
+                ORDER BY surname ASC
                 LIMIT ? OFFSET ?
                 """,
                 (surname + "%", per_page, offset),
